@@ -1,4 +1,4 @@
-package com.sofka.franceTour.usecase;
+package com.sofka.franceTour.usecase.cyclist;
 
 import com.sofka.franceTour.dto.CyclistDTO;
 import com.sofka.franceTour.mapper.CyclistMapper;
@@ -7,19 +7,19 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 
-import java.util.function.Function;
+import java.util.function.Supplier;
 
 @Service
 @RequiredArgsConstructor
-public class GetAllCyclistsByTeamUseCase implements Function<String, Flux<CyclistDTO>> {
+public class GetAllCyclistsUseCase implements Supplier {
 
     private final ICyclistRepository cyclistRepository;
     private final CyclistMapper cyclistMapper;
 
     @Override
-    public Flux<CyclistDTO> apply(String id) {
+    public Flux<CyclistDTO> get() {
         return cyclistRepository
-                .findAllByTeamId(id)
+                .findAll()
                 .map(cyclist -> cyclistMapper.turnEntityToDTO().apply(cyclist));
     }
 }

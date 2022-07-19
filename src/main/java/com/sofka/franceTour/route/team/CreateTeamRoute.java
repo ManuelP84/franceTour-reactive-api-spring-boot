@@ -1,7 +1,7 @@
-package com.sofka.franceTour.route;
+package com.sofka.franceTour.route.team;
 
-import com.sofka.franceTour.dto.CyclistDTO;
-import com.sofka.franceTour.usecase.AddCyclistUseCase;
+import com.sofka.franceTour.dto.TeamDTO;
+import com.sofka.franceTour.usecase.team.CreateTeamUseCase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
@@ -14,17 +14,17 @@ import static org.springframework.web.reactive.function.server.RequestPredicates
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 
 @Configuration
-public class AddCyclistRoute {
+public class CreateTeamRoute {
 
     @Bean
-    public RouterFunction<ServerResponse> addCyclist(AddCyclistUseCase useCase){
+    public RouterFunction<ServerResponse> createTeam(CreateTeamUseCase useCase){
         return route(
-                POST("/v1/api/add/cyclist").and(accept(MediaType.APPLICATION_JSON)),
-                request -> request.bodyToMono(CyclistDTO.class)
-                        .flatMap(cyclistDTO -> useCase.apply(cyclistDTO))
-                        .flatMap(cyclistDTO -> ServerResponse.status(HttpStatus.CREATED)
+                POST("/v1/api/create/team").and(accept(MediaType.APPLICATION_JSON)),
+                request -> request.bodyToMono(TeamDTO.class)
+                        .flatMap(teamDTO -> useCase.apply(teamDTO))
+                        .flatMap(teamDTO -> ServerResponse.status(HttpStatus.OK)
                                 .contentType(MediaType.APPLICATION_JSON)
-                                .bodyValue(cyclistDTO))
+                                .bodyValue(teamDTO))
         );
     }
 }

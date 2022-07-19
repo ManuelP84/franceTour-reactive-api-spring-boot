@@ -1,4 +1,4 @@
-package com.sofka.franceTour.usecase;
+package com.sofka.franceTour.usecase.cyclist;
 
 import com.sofka.franceTour.reporitory.ICyclistRepository;
 import lombok.RequiredArgsConstructor;

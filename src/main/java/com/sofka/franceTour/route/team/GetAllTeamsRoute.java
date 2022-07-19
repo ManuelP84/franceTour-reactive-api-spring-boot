@@ -1,7 +1,7 @@
-package com.sofka.franceTour.route;
+package com.sofka.franceTour.route.team;
 
-import com.sofka.franceTour.dto.CyclistDTO;
-import com.sofka.franceTour.usecase.GetAllCyclistsUseCase;
+import com.sofka.franceTour.dto.TeamDTO;
+import com.sofka.franceTour.usecase.team.GetAllTeamsUseCase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
@@ -15,16 +15,15 @@ import static org.springframework.web.reactive.function.server.RequestPredicates
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 
 @Configuration
-public class GetAllCyclistsRoute {
+public class GetAllTeamsRoute {
 
     @Bean
-    public RouterFunction<ServerResponse> getAllCyclists(GetAllCyclistsUseCase useCase){
+    public RouterFunction<ServerResponse> getAllTeams(GetAllTeamsUseCase useCase){
         return route(
-                GET("/v1/api/get/cyclists").and(accept(MediaType.APPLICATION_JSON)),
-                request -> ServerResponse
-                        .status(HttpStatus.OK)
+                GET("/v1/api/get/teams").and(accept(MediaType.APPLICATION_JSON)),
+                request -> ServerResponse.status(HttpStatus.OK)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .body(BodyInserters.fromPublisher(useCase.get(), CyclistDTO.class))
+                        .body(BodyInserters.fromPublisher(useCase.get(), TeamDTO.class))
         );
     }
 }

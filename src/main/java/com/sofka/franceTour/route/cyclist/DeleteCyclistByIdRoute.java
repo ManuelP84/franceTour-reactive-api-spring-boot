@@ -1,6 +1,6 @@
-package com.sofka.franceTour.route;
+package com.sofka.franceTour.route.cyclist;
 
-import com.sofka.franceTour.usecase.DeleteAllCyclistsUseCase;
+import com.sofka.franceTour.usecase.cyclist.DeleteCyclistByIdUsecase;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpStatus;
@@ -13,13 +13,15 @@ import static org.springframework.web.reactive.function.server.RequestPredicates
 import static org.springframework.web.reactive.function.server.RouterFunctions.route;
 
 @Configuration
-public class DeleteAllCyclistsRoute {
+public class DeleteCyclistByIdRoute {
 
     @Bean
-    public RouterFunction<ServerResponse> deleteAllCyclists(DeleteAllCyclistsUseCase useCase){
+    public RouterFunction<ServerResponse> deleteCyclistById(DeleteCyclistByIdUsecase usecase){
         return route(
-                DELETE("/v1/api/delete/cyclist/all").and(accept(MediaType.APPLICATION_JSON)),
-                request -> useCase.get().flatMap(unused -> ServerResponse.status(HttpStatus.ACCEPTED).build())
+                DELETE("/v1/api/delete/cyclist/{id}").and(accept(MediaType.APPLICATION_JSON)),
+                request -> usecase.apply(request.pathVariable("id"))
+                        .flatMap(unused -> ServerResponse.status(HttpStatus.ACCEPTED).build())
+                        .onErrorResume(error -> ServerResponse.status(HttpStatus.NOT_FOUND).build())
         );
     }
 }

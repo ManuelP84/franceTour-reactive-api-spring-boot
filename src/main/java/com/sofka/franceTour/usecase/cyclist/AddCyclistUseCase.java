@@ -1,4 +1,4 @@
-package com.sofka.franceTour.usecase;
+package com.sofka.franceTour.usecase.cyclist;
 
 import com.sofka.franceTour.dto.CyclistDTO;
 import com.sofka.franceTour.mapper.CyclistMapper;
@@ -11,7 +11,7 @@ import java.util.function.Function;
 
 @Service
 @RequiredArgsConstructor
-public class UpdateCyclistUseCase implements Function<CyclistDTO, Mono<CyclistDTO>> {
+public class AddCyclistUseCase implements Function<CyclistDTO, Mono<CyclistDTO>> {
 
     private final ICyclistRepository cyclistRepository;
     private final CyclistMapper cyclistMapper;
@@ -19,9 +19,7 @@ public class UpdateCyclistUseCase implements Function<CyclistDTO, Mono<CyclistDT
     @Override
     public Mono<CyclistDTO> apply(CyclistDTO cyclistDTO) {
         return cyclistRepository
-                .findByCyclistId(cyclistDTO.getCyclistId())
-                .flatMap(cyclist -> cyclistRepository.save(cyclistMapper.turnDTOToEntity().apply(cyclistDTO)))
-                .map(cyclist -> cyclistMapper.turnEntityToDTO().apply(cyclist))
-                .switchIfEmpty(Mono.error(() -> new Throwable("No cyclist found...Sorry")));
+                .save(cyclistMapper.turnDTOToEntity().apply(cyclistDTO))
+                .map(cyclist -> cyclistMapper.turnEntityToDTO().apply(cyclist));
     }
 }
