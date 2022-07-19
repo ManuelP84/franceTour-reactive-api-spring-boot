@@ -13,7 +13,7 @@ public class Cyclist {
     @Id
     private String id;
 
-    private Integer cyclistId;
+    private String cyclistId;
 
     private String name;
 

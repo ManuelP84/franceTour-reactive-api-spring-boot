@@ -1,19 +1,14 @@
 package com.sofka.franceTour.dto;
 
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.Random;
+import java.util.UUID;
 
 @Data
 public class CyclistDTO {
 
-    @Autowired
-    public Random random;
+    private String id = UUID.randomUUID().toString().substring(0, 3);
 
-    private String id;
-
-    private Integer cyclistId = random.nextInt(1000);
+    private String cyclistId;
 
     private String name;
 
