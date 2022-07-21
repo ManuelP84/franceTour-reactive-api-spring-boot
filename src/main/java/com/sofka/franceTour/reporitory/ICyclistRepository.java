@@ -11,4 +11,5 @@ public interface ICyclistRepository  extends ReactiveMongoRepository<Cyclist, St
     Flux<Cyclist> findAllByTeamId(String teamId);
     Mono<Cyclist> findByCyclistId(String cyclistId);
     Mono<Void> deleteByCyclistId(String cyclistId);
+    Mono<Void> deleteAllByTeamId(String teamId);
 }
