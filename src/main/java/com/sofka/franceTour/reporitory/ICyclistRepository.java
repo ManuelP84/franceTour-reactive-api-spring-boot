@@ -9,6 +9,7 @@ import reactor.core.publisher.Mono;
 @Repository
 public interface ICyclistRepository  extends ReactiveMongoRepository<Cyclist, String> {
     Flux<Cyclist> findAllByTeamId(String teamId);
+    Flux<Cyclist> findAllByCountry(String country);
     Mono<Cyclist> findByCyclistId(String cyclistId);
     Mono<Void> deleteByCyclistId(String cyclistId);
     Mono<Void> deleteAllByTeamId(String teamId);

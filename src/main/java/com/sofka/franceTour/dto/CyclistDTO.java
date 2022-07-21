@@ -13,4 +13,6 @@ public class CyclistDTO {
     private String name;
 
     private String teamId;
+
+    private String country;
 }

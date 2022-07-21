@@ -18,4 +18,6 @@ public class Cyclist {
     private String name;
 
     private String teamId;
+
+    private String country;
 }
